@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <!-- Librería math.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.0/math.min.js"></script>
+    <!-- Librería Chart.js para la gráfica -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Análisis Numérico - Newton Raphson</title>
 </head>
 <body>
@@ -56,7 +59,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Las filas se insertarán dinámicamente aquí -->
+                    <!-- Filas dinámicas -->
                 </tbody>
             </table>
         </div>
@@ -65,6 +68,12 @@
         <h3 id="raiz">Raíz:</h3>
         <p id="resul"></p>
         <p id="error"></p>
+
+        <br>
+        <h3>Gráfica de la Función</h3>
+        <div class="chart-container">
+            <canvas id="graficaFuncion"></canvas>
+        </div>
     </div>
 
     <script src="script.js"></script>
