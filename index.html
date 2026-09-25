@@ -7,7 +7,7 @@
     <!-- Librería math.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.0/math.min.js"></script>
     <!-- Librería Chart.js para la gráfica -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <title>Calculadora Newton-Raphson | Análisis Numérico</title>
 </head>
 <body>
@@ -28,7 +28,7 @@
         <div class="grid-inputs">
             <div class="input-group">
                 <label for="inicial">Valor inicial (x<sub>0</sub>):</label>
-                <input id="inicial" type="number" value="1">
+                <input id="inicial" type="number" step="any" value="1">
             </div>
 
             <div class="input-group">
@@ -39,7 +39,7 @@
 
         <div class="input-group">
             <label for="max-iter">Máximo de Iteraciones:</label>
-            <input id="max-iter" type="number" value="100">
+            <input id="max-iter" type="number" min="1" step="1" value="100">
         </div>
 
         <button onclick="calcular()" id="boton">Calcular Raíz</button>
@@ -56,9 +56,9 @@
                     <tr>
                         <th>Iteración</th>
                         <th>x<sub>i</sub></th>
-                        <th>f(x<sub>i</sub>)$</th>
+                        <th>f(x<sub>i</sub>)</th>
                         <th>f'(x<sub>i</sub>)</th>
-                        <th>Ea%</th>
+                        <th>Ea (%)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,9 +70,10 @@
         <div class="resultado-final-box">
             <h3 id="raiz">Raíz aproximada:</h3>
             <p id="resul">-</p>
+            <p id="resumen" class="resumen"></p>
         </div>
         
-        <p id="error"></p>
+        <p id="error" role="alert"></p>
 
         <h3>Gráfica de la Función</h3>
         <div class="chart-container">
