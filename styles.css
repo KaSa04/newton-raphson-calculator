@@ -16,7 +16,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 25px;
     width: 100%;
-    max-width: 600px;
+    max-width: 650px;
 }
 
 h1 {
@@ -86,17 +86,35 @@ button:hover {
     margin-top: 10px;
 }
 
-ul {
-    padding-left: 20px;
-    max-height: 200px;
+/* Estilos de la tabla Pro */
+.table-container {
+    max-height: 220px;
     overflow-y: auto;
-    background: #fff;
     border: 1px solid #ddd;
-    padding: 10px;
     border-radius: 5px;
+    background: #fff;
 }
 
-li {
-    font-size: 13px;
-    margin-bottom: 4px;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    text-align: center;
+}
+
+th, td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #333;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
 }
