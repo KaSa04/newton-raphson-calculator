@@ -5,27 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.0/math.min.js"></script>
-    <title>Análisis Numérico</title>
+    <title>Análisis Numérico - Newton Raphson</title>
 </head>
 <body>
 
-    <div id="diseño principal">
+    <div id="diseño-principal">
         <h1>- - - Newton Raphson - - -</h1>
-        <label for="input-funcion">Ingresa tu funcion f(x):</label>
-        <input id="funcion" type="text" value="3x^2-e^x">
-        <label for="input-valor">Valor incial:</label>
-        <input id="inicial" type="number" value="1">
+        
+        <div class="input-group">
+            <label for="funcion">Ingresa tu función f(x):</label>
+            <input id="funcion" type="text" value="3x^2-e^x">
+        </div>
+
+        <div class="input-group">
+            <label for="derivada-input">Derivada f'(x) <span class="opcional">(Opcional)</span>:</label>
+            <input id="derivada-input" type="text" placeholder="Se calcula sola si se deja vacío">
+        </div>
+
+        <div class="input-group">
+            <label for="inicial">Valor inicial (x<sub>0</sub>):</label>
+            <input id="inicial" type="number" value="1">
+        </div>
+
+        <div class="input-group">
+            <label for="tolerancia">Tolerancia:</label>
+            <input id="tolerancia" type="text" value="0.000001">
+        </div>
+
+        <div class="input-group">
+            <label for="max-iter">Máx. Iteraciones:</label>
+            <input id="max-iter" type="number" value="100">
+        </div>
+
         <button onclick="calcular()" id="boton">Calcular raíz</button>
 
-
-        <h3>Derivada f'(x): </h3>
+        <h3>Derivada f'(x) usada: </h3>
         <p id="derivada"></p>
         <br>
         <h3>Iteraciones</h3>
         <ul id="iteraciones"></ul>
         <br>
         <h3 id="raiz">Raíz:</h3>
-        <p id = "resul"></p>
+        <p id="resul"></p>
         <p id="error"></p>
     </div>
 
