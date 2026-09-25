@@ -28,7 +28,7 @@ function calcular() {
         let error = document.getElementById("error");
 
         tbody.innerHTML = ""; 
-        resultado.innerHTML = ""; 
+        resultado.innerHTML = "-"; 
         error.innerHTML = ""; 
 
         document.getElementById("derivada").innerText = derivadito; 
@@ -36,6 +36,7 @@ function calcular() {
         function newtonRaphson(xi) {
             let ea = 1; 
             let anteriorEa = Infinity;
+            let ultimoX = xi;
 
             for (let i = 0; i < maxIter; i++) {
                 let f = func.evaluate({x: xi});
@@ -43,10 +44,11 @@ function calcular() {
 
                 if (Math.abs(d) < 1e-12) {
                     error.innerText = "no pookie bear, la derivada es muy cercana a cero aquí y hay división por cero...";
-                    return null;
+                    return xi; // Retornamos el último punto para poder graficarlo
                 }
 
                 let x = xi - f / d; 
+                ultimoX = x;
                 
                 if (x !== 0) {
                     ea = math.abs((x - xi) / x);
@@ -66,9 +68,9 @@ function calcular() {
                 fila.appendChild(celdaEa);
                 tbody.appendChild(fila);
 
-                if (i > 0 && ea > anteriorEa * 10 && ea > 1) {
+                if (i > 0 && (ea > anteriorEa * 10 || isNaN(ea) || !isFinite(ea))) {
                     error.innerText = "no pookie bear, este método está divergiendo (los valores se están alejando)...";
-                    return null;
+                    return xi; // Retornamos el valor actual para graficar el intento fallido
                 }
                 anteriorEa = ea;
 
@@ -83,13 +85,13 @@ function calcular() {
         }
 
         let metodo = newtonRaphson(vali);
-        if (metodo !== null) {
-            let raizFinal = metodo;
-            resultado.innerText = raizFinal.toFixed(6);
-            
-            // Generar y desplegar la gráfica con Chart.js
-            generarGrafica(func, raizFinal, vali);
+        
+        if (metodo !== null && !isNaN(metodo) && isFinite(metodo)) {
+            resultado.innerText = metodo.toFixed(6);
         }
+
+        // Siempre generamos la gráfica basada en el valor inicial y el resultado obtenido (o último punto)
+        generarGrafica(func, metodo !== null ? metodo : vali, vali);
         
     } catch (err) {
         document.getElementById("error").innerText = "no pookie bear, revisa bien tu función, algo salió mal...";
@@ -97,10 +99,11 @@ function calcular() {
 }
 
 function generarGrafica(func, raiz, xInicial) {
-    // Definir un rango dinámico alrededor de la raíz y el valor inicial
-    let minX = Math.min(raiz, xInicial) - 2;
-    let maxX = Math.max(raiz, xInicial) + 2;
-    let pasos = 60;
+    // Definir un rango dinámico seguro alrededor de la raíz y el valor inicial
+    let centro = !isNaN(raiz) && isFinite(raiz) ? raiz : xInicial;
+    let minX = centro - 4;
+    let maxX = centro + 4;
+    let pasos = 70;
     let incremento = (maxX - minX) / pasos;
 
     let labels = [];
@@ -111,7 +114,6 @@ function generarGrafica(func, raiz, xInicial) {
         labels.push(xVal.toFixed(2));
         try {
             let yVal = func.evaluate({x: xVal});
-            // Controlar valores infinitos o muy grandes para que Chart.js no se rompa
             if (isNaN(yVal) || !isFinite(yVal)) {
                 dataPuntos.push(null);
             } else {
@@ -124,7 +126,6 @@ function generarGrafica(func, raiz, xInicial) {
 
     let ctx = document.getElementById('graficaFuncion').getContext('2d');
 
-    // Si ya existe una gráfica previa, la destruimos para crear la nueva actualizada
     if (miGrafica) {
         miGrafica.destroy();
     }
@@ -137,7 +138,7 @@ function generarGrafica(func, raiz, xInicial) {
                 label: 'f(x)',
                 data: dataPuntos,
                 borderColor: 'crimson',
-                backgroundColor: 'rgba(220, 20, 60, 0.1)',
+                backgroundColor: 'rgba(220, 20, 60, 0.08)',
                 borderWidth: 2,
                 pointRadius: 0,
                 tension: 0.2,
@@ -150,11 +151,11 @@ function generarGrafica(func, raiz, xInicial) {
             scales: {
                 x: {
                     title: { display: true, text: 'x' },
-                    grid: { color: '#eee' }
+                    grid: { color: '#f0f0f0' }
                 },
                 y: {
                     title: { display: true, text: 'f(x)' },
-                    grid: { color: '#eee' }
+                    grid: { color: '#f0f0f0' }
                 }
             }
         }
