@@ -4,6 +4,12 @@ Calculadora web para el **Método de Newton-Raphson** (Análisis Numérico): rec
 
 ---
 
+## 🔗 Demo
+
+[Ver proyecto en vivo](https://kasa04.github.io/newton-raphson-calculator/)
+
+---
+
 ## 📂 Evolución del Proyecto
 
 El desarrollo se hizo de forma incremental, partiendo de una versión funcional básica hasta llegar a una aplicación robusta con arquitectura limpia y visualización gráfica avanzada. Todo el proceso, paso a paso, está documentado en el [historial de commits](../../commits/main):
